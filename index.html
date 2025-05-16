@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You Are Magical!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to right, #ebe841f8, #fa69a5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      position: relative;
+    }
+    h1 {
+      font-size: 36px;
+      color: #fff;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    .emoji {
+      font-size: 70px;
+      margin: 10px;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .sun {
+      position: absolute;
+      top: 50px;
+      left: -100px;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, #fff9c4, #ffe082);
+      border-radius: 50%;
+      box-shadow: 0 0 30px 10px rgba(255, 223, 70, 0.5);
+      animation: moveSun 60s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes moveSun {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(120vw);
+      }
+    }
+
+    .message {
+      font-size: 24px;
+      margin-top: 20px;
+      text-align: center;
+      color: #fff;
+      max-width: 80%;
+    }
+    button {
+      margin: 15px;
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 20px;
+      background-color: #9a8c98;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #c9ada7;
+      transform: scale(1.05);
+    }
+    .sparkle {
+      position: absolute;
+      font-size: 20px;
+      color: #fff;
+      animation: float 8s linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+    .flower {
+      position: absolute;
+      animation: sway 4s ease-in-out infinite;
+      font-size: 50px;
+      color: #ff6347;
+    }
+    @keyframes sway {
+      0%, 100% { transform: rotate(0); }
+      50% { transform: rotate(10deg); }
+    }
+    .butterfly {
+      position: absolute;
+      font-size: 24px;
+      background: transparent;
+    }
+    .butterfly {
+      animation: flySideways 20s infinite;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes flySideways {
+      0% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translateX(50vw) translateY(-10vh) rotate(180deg);
+      }
+      100% {
+        transform: translateX(100vw) translateY(0) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bg-music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+  <div class="sun"></div>
+  <h1>You Are Amazing!</h1>
+  <div class="emoji" id="emoji">🐼</div>
+  <div class="message" id="message">Sending you sparkles and smiles!</div>
+
+  <button onclick="playMusic()">Start Music 🎵</button>
+  <button onclick="changeMagic()">Make Me Smile 😊</button>
+
+  <script>
+    const emojis = ["🐼", "🦜", "🧚", "✨", "🌸", "🌟", "☀️", "🦋", "🌱"];
+    const messages = [
+      "You light up the world like the sun! ☀️",
+      "Magic follows you wherever you go! 🧚",
+      "Pandas and parrots adore you! 🐼🦜",
+      "Like flowers, you bloom in your own time. 🌷",
+      "You are blooming like a flower! 🌸",
+      "Grow through what you go through. 🌱",
+      "Stars sparkle just for you! ✨",
+      "Butterflies dance for you! 🦋",
+      "You are pure happiness! 🌟",
+      "You make dreams come true! 🧚‍♀️",
+      "Believe in your own magic! ✨"
+    ];
+
+    function playMusic() {
+      const music = document.getElementById("bg-music");
+      music.play().catch(() => alert("Please click again to allow music!"));
+    }
+
+    function changeMagic() {
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+      const message = messages[Math.floor(Math.random() * messages.length)];
+      document.getElementById("emoji").innerText = emoji;
+      document.getElementById("message").innerText = message;
+    }
+    
+    // Create flowers that sway in the breeze
+    for (let i = 0; i < 5; i++) {
+      const flower = document.createElement("div");
+      flower.className = "flower";
+      flower.innerText = "🌸";
+      flower.style.left = Math.random() * 100 + "vw";
+      flower.style.top = Math.random() * 100 + "vh";
+      flower.style.animationDuration = (5 + Math.random() * 2) + "s";
+      flower.style.animationDelay = Math.random() * 10 + "s";
+      document.body.appendChild(flower);
+    }
+
+    // Create sparkling effect in background
+    for (let i = 0; i < 40; i++) {
+      const sparkle = document.createElement("div");
+      sparkle.className = "sparkle";
+      sparkle.innerText = "✨";
+      sparkle.style.left = Math.random() * 100 + "vw";
+      sparkle.style.top = Math.random() * -100 + "vh";
+      sparkle.style.animationDuration = (8 + Math.random() * 5) + "s";
+      sparkle.style.animationDelay = Math.random() * 10 + "s";
+      document.body.appendChild(sparkle);
+    }
+
+    for (let i = 0; i < 10; i++) {
+      const butterfly = document.createElement('div');
+      butterfly.classList.add('butterfly');
+      butterfly.innerText = "🦋";
+      butterfly.style.top = Math.random() * 90 + "vh";
+      butterfly.style.left = (Math.random() * -100) + "px"; // Start off screen
+      butterfly.style.animationDelay = Math.random() * 20 + "s";
+      document.body.appendChild(butterfly);
+    }
+  </script>
+
+</body>
+</html>
